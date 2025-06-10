@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/yourusername/your-login-app.git'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh 'python3 -m venv venv'
+                sh '. venv/bin/activate && pip install flask'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                // You can add unit tests here if you create them
+                echo 'No tests defined yet'
+            }
+        }
+
+        stage('Run App') {
+            steps {
+                // Run the app for demo (not typical in Jenkins, usually deploy to server)
+                sh '. venv/bin/activate && python app.py &'
+            }
+        }
+    }
+}
+
